@@ -34,6 +34,9 @@ def pre_order_print(root):
     pre_order_print(root.r_child)
 
 
-root = Node(20)
-binary_insert(root,30)
-binary_insert(root,10)
+root = Node(18)
+arr = [36, 9, 6, 12, 10, 1, 8]
+for item in arr:
+    binary_insert(root,Node(item))
+print "pre order"
+pre_order_print(root)
