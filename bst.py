@@ -34,9 +34,40 @@ def pre_order_print(root):
     pre_order_print(root.r_child)
 
 
+
+def findLcaDepth(root,start,end,distanceToLCA):
+    if root is None:
+        return 0
+    else:
+        if start.data < root.data and end.data < root.data :
+            return findLcaDepth(root.l_child,start,end,distanceToLCA+1)
+        if start.data > root.data and end.data > root.data :
+            return findLcaDepth(root.r_child,start,end,distanceToLCA+1)
+        return distanceToLCA
+
+def findDepthOfElement(root,node,depth):
+    if root is None : 
+        return 0
+    else:
+        if(root.data > node.data):
+            return findDepthOfElement(root.l_child,node, depth + 1)
+        if(root.data < node.data):
+            return findDepthOfElement(root.r_child,node, depth + 1)
+        return depth
+
+def findElementsBetween(root,start,end):
+    lcaNodeDepth = findLcaDepth(root,start,end,0)
+    print 'lcaNodeDepth ' + str(lcaNodeDepth)
+    depthStart = findDepthOfElement(root,start,0)
+    depthEnd = findDepthOfElement(root,end,0)
+    print depthStart
+    print depthEnd
+    print "distance between " + str(start.data) + " and " + str(end.data) + " is " + str(depthStart + depthEnd - 2* lcaNodeDepth)
 root = Node(18)
 arr = [36, 9, 6, 12, 10, 1, 8]
 for item in arr:
     binary_insert(root,Node(item))
-print "pre order"
+
 pre_order_print(root)
+print "length from lca"
+findElementsBetween(root,Node(1),Node(10))
